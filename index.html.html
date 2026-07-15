@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>わくわく沖縄大冒険ツアー | 旅のしおり</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  html{scroll-behavior:smooth;}
+  :root{
+    --sky: #eaf7fb;
+    --sea: #6ec6e3;
+    --deep-sea: #1f7fa8;
+    --deep-ink: #234a63;
+    --coral: #ff9d7a;
+    --coral-deep: #ff7e57;
+    --sand: #fffaf0;
+    --leaf: #6bc79a;
+    --leaf-deep: #3fa87b;
+    --cave: #3d7fd9;
+    --cave-deep: #23539c;
+    --shadow: 0 10px 24px rgba(35,74,99,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Zen Maru Gothic", sans-serif;
+    color:var(--deep-ink);
+    background:
+      radial-gradient(circle at 15% 0%, #f3fdff 0%, transparent 45%),
+      linear-gradient(180deg, var(--sky) 0%, #dff3f9 40%, #d3edf6 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:520px; margin:0 auto; padding:0 0 60px;}
+
+  /* ===== jump nav ===== */
+  .jumpnav{
+    display:flex; flex-wrap:nowrap; justify-content:center;
+    gap:6px;
+    margin-top:22px;
+    padding:0 10px;
+  }
+  .jumpnav button{
+    flex:1 1 0;
+    min-width:0;
+    text-align:center;
+    font-family:inherit;
+    font-size:12px; font-weight:700;
+    color:var(--deep-sea);
+    background:#fff;
+    border:1.5px solid var(--sea);
+    border-radius:999px;
+    padding:8px 4px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    box-shadow:0 3px 8px rgba(35,74,99,0.10);
+    transition:transform .15s ease;
+  }
+  .jumpnav button:active{background:var(--sea); color:#fff; transform:scale(0.95);}
+
+  /* ===== Boarding pass style header ===== */
+  .ticket{
+    position:relative;
+    margin:18px 14px 0;
+    background:linear-gradient(135deg, var(--sea) 0%, var(--deep-sea) 100%);
+    border-radius:26px;
+    padding:28px 22px 34px;
+    color:#fff;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .ticket::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 90% -10%, rgba(255,255,255,0.35), transparent 40%),
+      radial-gradient(circle at 0% 110%, rgba(255,255,255,0.2), transparent 40%);
+  }
+  .ticket .eyebrow{
+    font-size:12.5px; letter-spacing:.14em; font-weight:700;
+    opacity:.9; position:relative;
+  }
+  .ticket h1{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:900;
+    font-size:26px;
+    line-height:1.4;
+    margin:8px 0 4px;
+    position:relative;
+    text-shadow:0 2px 6px rgba(0,0,0,0.12);
+  }
+  .ticket .sub{
+    font-size:14px; font-weight:500; opacity:.95; position:relative;
+  }
+  .countdown{
+    position:relative;
+    margin-top:22px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .countdown .num{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:900;
+    font-size:46px;
+    line-height:1;
+    background:#fff;
+    color:var(--coral-deep);
+    border-radius:16px;
+    padding:6px 18px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.22);
+    animation:pop 1.8s ease-in-out infinite;
+  }
+  @keyframes pop{
+    0%,100%{transform:translateY(0) rotate(-2deg);}
+    50%{transform:translateY(-4px) rotate(2deg);}
+  }
+  .countdown .txt{font-size:14.5px; font-weight:700; letter-spacing:.03em;}
+  .ticket .stub{
+    position:absolute; right:10px; top:14px;
+    writing-mode:vertical-rl;
+    font-size:11px; letter-spacing:.3em; opacity:.5; font-weight:700;
+    z-index:1;
+  }
+  .ticket .hem{
+    position:absolute; left:0; right:0; bottom:0; height:26px;
+    display:block;
+  }
+
+  /* ===== wave divider ===== */
+  .wave{width:100%; display:block; margin-top:-2px;}
+
+  /* ===== promises card ===== */
+  .promises{
+    margin:22px 14px 0;
+    background:var(--sand);
+    border-radius:22px;
+    padding:20px 20px 18px;
+    box-shadow:var(--shadow);
+  }
+  .promises h2{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-size:18px;
+    margin:0 0 12px;
+    color:var(--deep-sea);
+    display:flex; align-items:center; gap:6px;
+  }
+  .promises ol{margin:0; padding:0; list-style:none;}
+  .promises li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:14.5px; line-height:1.6; padding:9px 0;
+    border-bottom:1px dashed #e3dccb;
+  }
+  .promises li:last-child{border-bottom:none;}
+  .promises .badge{
+    flex:0 0 auto;
+    width:24px; height:24px; border-radius:50%;
+    background:var(--sea); color:#fff; font-weight:700; font-size:13px;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== day sections ===== */
+  .day{
+    margin:26px 14px 0;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:var(--sand);
+    scroll-margin-top:60px;
+  }
+  .day-head{
+    padding:18px 20px 16px;
+    color:#fff;
+    position:relative;
+  }
+  .day1 .day-head{background:linear-gradient(120deg, #7fd4ec, #3d9fca);}
+  .day2 .day-head{background:linear-gradient(120deg, #8adcae, #2f9c6f);}
+  .day3 .day-head{background:linear-gradient(120deg, #6fa3ea, #2b5fb8);}
+  .day-head .tag{
+    display:inline-block;
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-size:15px; font-weight:900; letter-spacing:.08em;
+    color:var(--deep-sea);
+    background:#fff;
+    border-radius:999px;
+    padding:4px 16px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  }
+  .day2 .day-head .tag{color:var(--leaf-deep);}
+  .day3 .day-head .tag{color:var(--cave-deep);}
+  .day-head h2{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-size:19px; margin:10px 0 0; line-height:1.5;
+  }
+  .day-body{padding:6px 18px 18px;}
+  .item{
+    position:relative;
+    padding:14px 0 14px 26px;
+  }
+  .item::after{
+    content:"";
+    position:absolute; left:6px; top:0; bottom:0;
+    width:2px; background:#dfe8e4;
+  }
+  .item:last-child::after{bottom:auto; height:25px;}
+  .item:first-child::after{top:25px;}
+  .item::before{
+    content:"";
+    position:absolute; left:0; top:18px;
+    width:14px; height:14px; border-radius:50%;
+    background:#fff; border:3px solid var(--sea);
+    z-index:2;
+  }
+  .day2 .item::before{border-color:var(--leaf-deep);}
+  .day3 .item::before{border-color:var(--cave);}
+  .item .time{
+    display:flex; align-items:center; gap:9px;
+    font-weight:700; font-size:14.5px; color:var(--deep-sea);
+  }
+  .item .time .chip{
+    flex:0 0 auto;
+    background:var(--sea); color:#fff;
+    font-size:12px; font-weight:700;
+    padding:3px 10px; border-radius:999px;
+  }
+  .day2 .item .time{color:var(--leaf-deep);}
+  .day2 .item .time .chip{background:var(--leaf-deep);}
+  .day3 .item .time{color:var(--cave-deep);}
+  .day3 .item .time .chip{background:var(--cave-deep);}
+  .item .time .maplink{
+    color:inherit;
+    text-decoration:underline;
+    text-decoration-style:dotted;
+    text-underline-offset:3px;
+    cursor:pointer;
+  }
+  .item .desc{font-size:14px; line-height:1.7; margin-top:4px;}
+  .highlight{
+    margin-top:10px;
+    background:linear-gradient(120deg, #fff1e9, #ffe4d5);
+    border:1.5px solid var(--coral);
+    border-radius:14px;
+    padding:10px 14px;
+  }
+  .highlight .star{
+    font-weight:700; font-size:13.5px; color:var(--coral-deep);
+    display:flex; align-items:center; gap:5px; margin-bottom:4px;
+  }
+  .highlight p{margin:0; font-size:13.8px; line-height:1.7;}
+
+  /* ===== checklist ===== */
+  .checklist{
+    margin:26px 14px 0;
+    background:var(--sand);
+    border-radius:22px;
+    padding:20px 20px 22px;
+    box-shadow:var(--shadow);
+    scroll-margin-top:60px;
+  }
+  .checklist h2{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-size:18px; margin:0 0 14px; color:var(--deep-sea);
+  }
+  .check-item{
+    display:flex; align-items:center; gap:12px;
+    font-size:14.5px; padding:10px 4px;
+    border-bottom:1px dashed #e3dccb;
+  }
+  .check-item:last-child{border-bottom:none;}
+  .check-item input{
+    width:22px; height:22px; accent-color:var(--sea); flex:0 0 auto;
+  }
+  .check-item label{flex:1;}
+  .check-item .note{font-size:12px; color:#7c93a3; display:block; margin-top:2px;}
+
+  footer{
+    text-align:center; font-size:12.5px; color:#7c93a3;
+    margin-top:30px; padding:0 20px;
+  }
+  footer span{display:block; font-size:20px; margin-bottom:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="ticket">
+    <div class="stub">OKINAWA ／ TRIP TICKET</div>
+    <div class="eyebrow">OKINAWA FAMILY VOYAGE</div>
+    <h1>🌴 わくわく沖縄<br>大冒険ツアー 🌴</h1>
+    <div class="sub">2泊3日 旅のしおり</div>
+    <div class="countdown">
+      <div class="num">5</div>
+      <div class="txt">出発まで<br>あと5日！準備しよう 🎉</div>
+    </div>
+    <svg class="hem" viewBox="0 0 500 26" preserveAspectRatio="none"><path d="M0,10 C80,25 160,-5 250,10 C340,25 420,-5 500,10 L500,26 L0,26 Z" fill="rgba(255,255,255,0.22)"></path></svg>
+  </div>
+
+  <nav class="jumpnav">
+    <button type="button" class="jlink" data-target="day1">☀️ DAY1</button>
+    <button type="button" class="jlink" data-target="day2">🦖 DAY2</button>
+    <button type="button" class="jlink" data-target="day3">🤿 DAY3</button>
+    <button type="button" class="jlink" data-target="checklist">🎒 持ち物</button>
+  </nav>
+
+  <div class="promises">
+    <h2>⭐ みんなで守る「旅のやくそく」</h2>
+    <ol>
+      <li><span class="badge">1</span>💧 水分をたくさんとって、熱中症に気をつけよう！</li>
+      <li><span class="badge">2</span>⏰ 時間をまもって、みんなで協力して楽しもう！</li>
+      <li><span class="badge">3</span>🌊 沖縄のキレイな自然を大切にしよう！</li>
+    </ol>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day day1" id="day1">
+    <div class="day-head">
+      <div class="tag">DAY 1</div>
+      <h2>☀️ いざ出発！めんそーれ沖縄 ＆ 美ら海水族館</h2>
+    </div>
+    <div class="day-body">
+      <div class="item">
+        <div class="time"><span class="chip">午前</span>那覇空港に到着！</div>
+        <div class="desc">✈️ 飛行機を降りたら、レンタカーを借りに行くよ。沖縄の風がきもちいい〜！</div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">13:00</span>本部町のまわりでランチ</div>
+        <div class="desc">お昼ごはんは、沖縄名物の「沖縄そば」を食べよう🍜つるつるの麺がおいしいよ！</div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">14:30</span><span class="maplink" data-url="https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%BE%8E%E3%82%89%E6%B5%B7%E6%B0%B4%E6%97%8F%E9%A4%A8">沖縄美ら海水族館</span></div>
+        <div class="highlight">
+          <div class="star">🦈 大迫力のジンベエザメに会いに行こう！</div>
+          <p>ギネス級の大きな水そうを泳ぐジンベエザメやマンタは絶対に見逃せない！お外のイルカショーやウミガメ館もゆっくりまわるよ🐢</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">18:00</span>ホテルにチェックイン</div>
+        <div class="desc">プールつきリゾートホテルへ🏊夜ごはんは近くの居酒屋さんで、沖縄の音楽を聴きながらアグー豚や海ぶどうをたべよう！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day day2" id="day2">
+    <div class="day-head">
+      <div class="tag">DAY 2</div>
+      <h2>🦖 大興奮！ジャングリア沖縄 ＆ アメリカンビレッジ</h2>
+    </div>
+    <div class="day-body">
+      <div class="item">
+        <div class="time"><span class="chip">09:30</span><span class="maplink" data-url="https://www.google.com/maps/search/?api=1&query=%E3%82%B8%E3%83%A3%E3%83%B3%E3%82%B0%E3%83%AA%E3%82%A2%E6%B2%96%E7%B8%84">ジャングリア沖縄</span>に突撃！</div>
+        <div class="highlight">
+          <div class="star">🦖 きょうのメインイベント！</div>
+          <p>まるごと一日中、最新のでっかいテーマパークであそびつくそう！大型の肉食恐竜におそわれるサファリツアーや、お宝をうばいあうレーザーバトルなど、みんなで大冒険だ！</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">18:00</span><span class="maplink" data-url="https://www.google.com/maps/search/?api=1&query=%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%AB%E3%83%B3%E3%83%93%E3%83%AC%E3%83%83%E3%82%B8%E3%80%80%E6%B2%96%E7%B8%84">アメリカンビレッジ</span></div>
+        <div class="desc">夜になると、アメリカのお店みたいにキラキラ光るキレイな街に変身！大きなステーキやタコスをガッツリたべて、お祭り気分でお散歩しよう🎶</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day day3" id="day3">
+    <div class="day-head">
+      <div class="tag">DAY 3</div>
+      <h2>🤿 神秘の世界！青の洞窟シュノーケリング ＆ お買い物</h2>
+    </div>
+    <div class="day-body">
+      <div class="item">
+        <div class="time"><span class="chip">08:00</span><span class="maplink" data-url="https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E3%81%AE%E6%B4%9E%E7%AA%9F%E3%80%80%E6%B2%96%E7%B8%84">青の洞窟</span>シュノーケリングツアー</div>
+        <div class="highlight">
+          <div class="star">🐠 海の中のキラキラ世界へ！</div>
+          <p>朝いちばんのキレイな海にドボン！洞窟の中が青くピカピカ光って、まるで魔法の世界みたい✨かわいい熱帯魚たちにエサをあげる体験もあるよ🐠</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">11:30</span>シャワー・お着替え ＆ ランチ</div>
+        <div class="desc">海からあがったらスッキリ着替えて、南へむかいながら美味しいお昼ごはん🍽️</div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">13:30</span><span class="maplink" data-url="https://www.google.com/maps/search/?api=1&query=%E7%80%AC%E9%95%B7%E5%B3%B6%E3%82%A6%E3%83%9F%E3%82%AB%E3%82%B8%E3%83%86%E3%83%A9%E3%82%B9">ウミカジテラス</span></div>
+        <div class="desc">お土産を選ぼう。すぐ近くを飛ぶ飛行機を見ながら、冷たいスイーツが食べられるよ🍧</div>
+      </div>
+      <div class="item">
+        <div class="time"><span class="chip">夕方</span>那覇空港からバイバイ沖縄！</div>
+        <div class="desc">レンタカーを返して、楽しかった思い出をいっぱいバッグにつめて、お家に帰ろう🚗！</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checklist" id="checklist">
+    <h2>🎒 もちものチェックリスト</h2>
+    <div class="check-item"><input type="checkbox" id="c1"><label for="c1">👙 水着・ラッシュガード<span class="note">海でおよぐとき用</span></label></div>
+    <div class="check-item"><input type="checkbox" id="c2"><label for="c2">👡 サンダル<span class="note">海用と、たくさん歩けるスニーカー</span></label></div>
+    <div class="check-item"><input type="checkbox" id="c3"><label for="c3">🧢 帽子・日焼け止め</label></div>
+    <div class="check-item"><input type="checkbox" id="c4"><label for="c4">🏖️ タオル</label></div>
+    <div class="check-item"><input type="checkbox" id="c5"><label for="c5">👕 着替え<span class="note">多めにあると安心！</span></label></div>
+    <div class="check-item"><input type="checkbox" id="c6"><label for="c6">💰 おこづかい</label></div>
+  </div>
+
+  <footer>
+    <span>🌺</span>
+    みんなで楽しい思い出をつくろうね！
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('.jlink').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.getAttribute('data-target'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+  document.querySelectorAll('.maplink').forEach(function(el){
+    el.addEventListener('click', function(){
+      window.open(el.getAttribute('data-url'), '_blank', 'noopener');
+    });
+  });
+</script>
+</body>
+</html>
